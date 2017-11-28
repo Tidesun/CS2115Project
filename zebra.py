@@ -1,14 +1,20 @@
 from pyeda.inter import *
 
-catagory = [['Norwegian', 'Ukrainian', 'Englishman', 'Spaniard', 'Japanese'],
-			['Fox', 'Horse', 'Snails', 'Dog', 'Zebra'],
-			['Water', 'Tea', 'Milk', 'Orange Juice', 'Coffee'],
-			['Yellow', 'Blue', 'Red', 'Ivory', 'Green'],
-			['Kools', 'Chesterfield', 'Old Gold', 'Lucky Strike', 'Parliament']]
+name = [['Norwegian', 'Ukrainian', 'Englishman', 'Spaniard', 'Japanese'],
+	['Fox', 'Horse', 'Snails', 'Dog', 'Zebra'],
+	['Water', 'Tea', 'Milk', 'Orange Juice', 'Coffee'],
+	['Yellow', 'Blue', 'Red', 'Ivory', 'Green'],
+	['Kools', 'Chesterfield', 'Old Gold', 'Lucky Strike', 'Parliament']]
 
-name="Nationality Pets Drinks Color Smokes".split()
+info="Nationality Pets Drinks Color Smokes".split()
+
+# X[itemcatagory][itemname][housed]
 X = exprvars('X',(1, 6),(1, 6),(1, 6))
+
 A,B,C,D,E,F,G,H,I,J,K,L=map(exprvar,'ABCDEFGHIJKL')
+
+# Every item has unique house
+
 V = And(*[
         And(*[
             OneHot(*[ X[r, c, v]
@@ -16,14 +22,13 @@ V = And(*[
             for c in range(1, 6) ])
         for r in range(1, 6) ])
 
-
+# Every house has unique item
 W = And(*[
         And(*[
             OneHot(*[ X[r, c, v]
                 for c in range(1, 6) ])
             for v in range(1, 6) ])
         for r in range(1, 6) ])
-
 
 
 # 2.The Englishman lives in the red house.
@@ -83,7 +88,7 @@ for i in range(5):
 	for k in range(5):
 		for j in range (5):
 			if (result[X[k+1,j+1,i+1]]==1):
-				print(name[k],':',catagory[k][j])
+				print(info[k],':',name[k][j])
 
 	print()
 
